@@ -1,0 +1,26 @@
+ttype Produto {
+  id: Int!
+  nome: String!
+  categoriaId: Int!
+}
+
+input CreateProdutoInput {
+  nome: String!
+  categoriaId: Int!
+}
+
+input UpdateProdutoInput {
+  nome: String
+  categoriaId: Int
+}
+
+type Query {
+  produtos(search: String): [Produto]
+  produto(id: Int!): Produto
+}
+
+type Mutation {
+  createProduto(data: CreateProdutoInput): Produto
+  updateProduto(id: Int!, data: UpdateProdutoInput): Produto
+  deleteProduto(id: Int!): Boolean
+}
