@@ -2,13 +2,16 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { CategoriasService } from './categorias.service';
 import { CreateCategoriaInput } from './dto/create-categoria.input';
 import { UpdateCategoriaInput } from './dto/update-categoria.input';
+import { Body, Param } from '@nestjs/common';
 
 @Resolver('Categoria')
 export class CategoriasResolver {
   constructor(private readonly categoriasService: CategoriasService) {}
 
   @Mutation('createCategoria')
-  create(@Args('createCategoriaInput') createCategoriaInput: CreateCategoriaInput) {
+  create(
+    @Body('createCategoriaInput') createCategoriaInput: CreateCategoriaInput,
+  ) {
     return this.categoriasService.create(createCategoriaInput);
   }
 
@@ -18,17 +21,20 @@ export class CategoriasResolver {
   }
 
   @Query('categoria')
-  findOne(@Args('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.categoriasService.findOne(id);
   }
 
   @Mutation('updateCategoria')
-  update(@Args('updateCategoriaInput') updateCategoriaInput: UpdateCategoriaInput) {
-    return this.categoriasService.update(updateCategoriaInput.id, updateCategoriaInput);
+  update(
+    @Param('id') id: number,
+    @Args('updateCategoriaInput') updateCategoriaInput: UpdateCategoriaInput,
+  ) {
+    return this.categoriasService.update(+id, updateCategoriaInput);
   }
 
   @Mutation('removeCategoria')
-  remove(@Args('id') id: number) {
+  remove(@Param('id') id: number) {
     return this.categoriasService.remove(id);
   }
 }

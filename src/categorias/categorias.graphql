@@ -1,15 +1,40 @@
+type Produto {
+  id: Int!
+  nome: String!
+  categoriaId: Int!
+}
+
+input CreateProdutoInput {
+  nome: String!
+  categoriaId: Int!
+}
+
+input UpdateProdutoInput {
+  nome: String
+  categoriaId: Int
+}
+
+type Query {
+  produtos(search: String): [Produto]
+  produto(id: Int!): Produto
+}
+
+type Mutation {
+  createProduto(data: CreateProdutoInput): Produto
+  updateProduto(id: Int!, data: UpdateProdutoInput): Produto
+  deleteProduto(id: Int!): Boolean
+}
 type Categoria {
-  # Example field (placeholder)
-  exampleField: Int
+  id: Int
+  nome: String
 }
 
 input CreateCategoriaInput {
-  # Example field (placeholder)
-  exampleField: Int
+  nome: String
 }
 
 input UpdateCategoriaInput {
-  id: Int!
+  nome: String!
 }
 
 type Query {
