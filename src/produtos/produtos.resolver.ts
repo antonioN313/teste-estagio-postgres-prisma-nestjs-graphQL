@@ -14,8 +14,8 @@ export class ProdutosResolver {
   }
 
   @Query('produtos')
-  findAll() {
-    return this.produtosService.findAll();
+  findAll(@Param('search') search?: string) {
+    return this.produtosService.findAll(search);
   }
 
   @Query('produto')
